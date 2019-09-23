@@ -1,0 +1,19 @@
+{
+   "type": "record",
+   "name": "TemperatureRecord",
+   "namespace": "com.itorii.kafka.schema",
+   "fields": [
+     {
+       "name": "deviceId",
+       "type": "string"
+     },
+     {
+       "name": "temperature",
+       "type": "string"
+     },
+     {
+      "name": "timestamp",
+      "type": "string"
+     }
+   ]
+ }
