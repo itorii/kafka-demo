@@ -1,18 +1,17 @@
 package com.itorii.kafka.entities;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class TemperatureRecord {
 
     private String deviceId;
+
     private String temperature;
+
     private String timestamp;
 
-    public TemperatureRecord() {
+    public TemperatureRecord(String deviceId, String temperature, String timestamp) {
+        this.deviceId = deviceId;
+        this.temperature = temperature;
+        this.timestamp = timestamp;
     }
 
     public String getDeviceId() {

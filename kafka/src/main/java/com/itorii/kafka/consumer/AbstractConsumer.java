@@ -1,11 +1,24 @@
 package com.itorii.kafka.consumer;
 
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.CountDownLatch;
 
-public interface AbstractConsumer<T> {
+public abstract class AbstractConsumer<T> {
 
-    CountDownLatch getLatch();
+    private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
-    void consume(T message);
+    private CountDownLatch latch = new CountDownLatch(9);
+
+    public CountDownLatch getLatch() {
+        return this.latch;
+    }
+
+    public void consume(ConsumerRecord<String,T> consumerRecord) {
+        log.info("received message: '{}'", consumerRecord.value() );
+        latch.countDown();
+    }
 
 }

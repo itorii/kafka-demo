@@ -1,15 +1,13 @@
 package com.itorii.kafka.consumer;
 
 import com.itorii.kafka.schema.TemperatureRecord;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.CountDownLatch;
 @Component
-public class TemperatureRecordConsumer implements AbstractConsumer<TemperatureRecord> {
-    private static final Logger log = LoggerFactory.getLogger(TemperatureRecordConsumer.class);
+public class TemperatureRecordConsumer extends AbstractConsumer<TemperatureRecord> {
 
     private CountDownLatch latch = new CountDownLatch(9);
 
@@ -20,8 +18,7 @@ public class TemperatureRecordConsumer implements AbstractConsumer<TemperatureRe
 
     @Override
     @KafkaListener(topics = "temperature")
-    public void consume(TemperatureRecord message) {
-        log.info("received message: '{}'", message);
-        latch.countDown();
+    public void consume(ConsumerRecord<String,TemperatureRecord> temperatureRecord) {
+        super.consume(temperatureRecord);
     }
 }
