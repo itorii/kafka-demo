@@ -18,7 +18,7 @@ public class TemperatureRecordConsumer extends AbstractConsumer<TemperatureRecor
 
     @Override
     @KafkaListener(topics = "temperature")
-    public void consume(ConsumerRecord<String,TemperatureRecord> temperatureRecord) {
+    public void consume(ConsumerRecord<String, TemperatureRecord> temperatureRecord) {
         super.consume(temperatureRecord);
     }
 }

@@ -1,6 +1,6 @@
 package com.itorii.kafka.config;
 
-import com.itorii.kafka.schema.TemperatureRecord;
+import com.itorii.kafka.entities.TemperatureRecord;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;

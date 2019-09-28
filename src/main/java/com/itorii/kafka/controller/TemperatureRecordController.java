@@ -38,6 +38,6 @@ public class TemperatureRecordController {
                 .setTimestamp(temperatureRecord.getTimestamp()).build();
     }
 
-    //todo make abstract & use object mapper to do that ^^^
+    //todo make abstract & use mapstruct to do that ^^^
 
 }
