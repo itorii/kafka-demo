@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/temperature")
-public class TemperatureRecordController {
+public class TemperatureRecordController implements KafkaController<TemperatureRecord>{
 
     private TemperatureRecordProducer temperatureRecordProducer;
     private static final Logger log = LoggerFactory.getLogger(TemperatureRecordController.class);
@@ -37,7 +37,5 @@ public class TemperatureRecordController {
                 .setTemperature(temperatureRecord.getTemperature())
                 .setTimestamp(temperatureRecord.getTimestamp()).build();
     }
-
-    //todo make abstract & use mapstruct to do that ^^^
 
 }

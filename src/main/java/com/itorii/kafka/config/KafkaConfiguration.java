@@ -17,7 +17,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
-import org.springframework.kafka.core.*;
+import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.KafkaAdmin;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 
 import java.util.HashMap;
@@ -67,7 +72,6 @@ public class KafkaConfiguration {
         Map<String, Object> adminConfig = new HashMap<>();
         adminConfig.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaServer);
         adminConfig.put(AdminClientConfig.CONNECTIONS_MAX_IDLE_MS_CONFIG, 1000);
-        adminConfig.put(AdminClientConfig.CLIENT_ID_CONFIG, "temperatureClient1");
         return new KafkaAdmin(adminConfig);
     }
 
