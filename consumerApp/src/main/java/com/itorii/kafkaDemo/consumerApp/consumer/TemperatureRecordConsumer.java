@@ -1,6 +1,7 @@
 package com.itorii.kafkaDemo.consumerApp.consumer;
 
 import com.itorii.kafkaDemo.common.avro.TemperatureRecord;
+import com.itorii.kafkaDemo.consumerApp.events.TemperatureRecordPublisher;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,12 @@ public class TemperatureRecordConsumer extends AbstractConsumer<TemperatureRecor
 
     private CountDownLatch latch = new CountDownLatch(9);
 
+    private TemperatureRecordPublisher temperatureRecordPublisher;
+
+    public TemperatureRecordConsumer(TemperatureRecordPublisher temperatureRecordPublisher) {
+        this.temperatureRecordPublisher = temperatureRecordPublisher;
+    }
+
     @Override
     public CountDownLatch getLatch(){
         return this.latch;
@@ -21,5 +28,6 @@ public class TemperatureRecordConsumer extends AbstractConsumer<TemperatureRecor
     @KafkaListener(topics = "temperature")
     public void consume(ConsumerRecord<String, TemperatureRecord> temperatureRecord) {
         super.consume(temperatureRecord);
+        temperatureRecordPublisher.fireEvent(temperatureRecord.value());
     }
 }

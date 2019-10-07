@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 @Configuration
 @EnableKafka
+@EnableMongoRepositories("com.itorii.kafkaDemo.consumerApp.repo")
 public class Config {
 
     @Value("${kafka.server}")
@@ -64,12 +66,9 @@ public class Config {
 
     @Bean
     public MongoClient mongo() {
+        //use wls or docker maybe
         return new MongoClient("localhost");
     }
 
-    @Bean//ditch!
-    public MongoTemplate mongoTemplate() throws Exception {
-        return new MongoTemplate(mongo(), "temperature");
-    }
 
 }
