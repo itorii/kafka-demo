@@ -1,6 +1,7 @@
 package com.itorii.kafkaDemo.consumerApp.config;
 
 import com.itorii.kafkaDemo.common.avro.TemperatureRecord;
+import com.mongodb.MongoClient;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -8,6 +9,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
@@ -60,6 +62,14 @@ public class Config {
         return factory;
     }
 
+    @Bean
+    public MongoClient mongo() {
+        return new MongoClient("localhost");
+    }
 
+    @Bean//ditch!
+    public MongoTemplate mongoTemplate() throws Exception {
+        return new MongoTemplate(mongo(), "temperature");
+    }
 
 }

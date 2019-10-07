@@ -1,6 +1,7 @@
 package com.itorii.kafkaDemo.producerApp.events;
 
 import com.itorii.kafkaDemo.common.events.BaseEvent;
+import com.itorii.kafkaDemo.common.parser.TemperatureRecordParser;
 import com.itorii.kafkaDemo.producerApp.producer.TemperatureRecordProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public class SensorDataListener {
     @EventListener
     public void onSensorData(BaseEvent<String> event){
         log.info("Received sensor data {}", event.getPayload());
-        //todo parse and push to kafka
+        temperatureRecordProducer.send(TemperatureRecordParser.fromString(event.getPayload()));
     }
 }
 
