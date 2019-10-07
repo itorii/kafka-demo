@@ -1,6 +1,6 @@
 package com.itorii.kafkaDemo.producerApp;
 
-import com.itorii.kafkaDemo.producerApp.events.TemperatureRecordPublisher;
+import com.itorii.kafkaDemo.producerApp.events.SensorDataPublisher;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
@@ -11,7 +11,7 @@ import reactor.netty.tcp.TcpServer;
 public class ProducerApplication {
     public static void main(String[] args) {
         AnnotationConfigServletWebServerApplicationContext ctx = (AnnotationConfigServletWebServerApplicationContext) SpringApplication.run(ProducerApplication.class, args);
-        TemperatureRecordPublisher temperatureRecordPublisher = ctx.getBean(TemperatureRecordPublisher.class);
+        SensorDataPublisher sensorDataPublisher = ctx.getBean(SensorDataPublisher.class);
         DisposableServer temperatureServer =
                 TcpServer.create()
                         .host("localhost")
@@ -19,8 +19,8 @@ public class ProducerApplication {
                         .wiretap(true)
                         .handle(
                                 (i, o) -> i.receive().asString()
-                                        .doOnEach(s -> temperatureRecordPublisher.fireEvent(s.get()))
-                                        .then())//todo fire event and push to kafka
+                                        .doOnEach(s -> sensorDataPublisher.fireEvent(s.get()))
+                                        .then())
                         .bindNow();
 
         temperatureServer.onDispose()

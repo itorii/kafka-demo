@@ -8,18 +8,18 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TemperatureRecordListener {
+public class SensorDataListener {
 
     private TemperatureRecordProducer temperatureRecordProducer;
-    private static final Logger log = LoggerFactory.getLogger(TemperatureRecordListener.class);
+    private static final Logger log = LoggerFactory.getLogger(SensorDataListener.class);
 
-    public TemperatureRecordListener(TemperatureRecordProducer temperatureRecordProducer) {
+    public SensorDataListener(TemperatureRecordProducer temperatureRecordProducer) {
         this.temperatureRecordProducer = temperatureRecordProducer;
     }
 
     @EventListener
-    public void onTemperatureRecord(BaseEvent<String> event){
-        log.info("Received temperature record {}", event.getPayload());
+    public void onSensorData(BaseEvent<String> event){
+        log.info("Received sensor data {}", event.getPayload());
         //todo parse and push to kafka
     }
 }
