@@ -1,6 +1,7 @@
 package com.itorii.kafkaDemo.producerApp.config;
 
 import com.itorii.kafkaDemo.common.avro.TemperatureRecord;
+import com.itorii.kafkaDemo.producerApp.events.TemperatureRecordPublisher;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
 import org.apache.kafka.clients.admin.AdminClientConfig;
@@ -14,6 +15,8 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import reactor.netty.DisposableServer;
+import reactor.netty.tcp.TcpServer;
 
 import java.util.HashMap;
 import java.util.Map;
